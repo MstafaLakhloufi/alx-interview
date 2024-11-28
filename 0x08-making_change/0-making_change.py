@@ -10,13 +10,14 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    coins.sort(reverse=True)  
-    counter = 0
-
-    for coin in coins:
+    else:
+        coin = sorted(coins)
+        coin.reverse()
+        counter = 0
+        for i in coin:
+            while (total >= i):
+                counter += 1
+                total -= i
         if total == 0:
-            break
-        count, total = divmod(total, coin)
-        counter += count
-
-    return counter if total == 0 else -1
+            return counter
+        return -1
