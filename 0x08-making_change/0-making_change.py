@@ -16,6 +16,20 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
+    else:
+        coin = sorted(coins)
+        coin.reverse()
+        counter = 0
+        for e in coin:
+            while (total >= e):
+                counter += 1
+                total -= e
+        if total == 0:
+            return counter
+        return -1
+    '''if total <= 0:
+        return 0
+
     coins.sort(reverse=True)  
     counter = 0
 
@@ -25,4 +39,5 @@ def makeChange(coins, total):
         count, total = divmod(total, coin)
         counter += count
 
-    return counter if total == 0 else -1
+    return counter if total == 0 else -1'''
+    
