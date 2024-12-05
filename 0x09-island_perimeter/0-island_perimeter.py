@@ -1,27 +1,42 @@
-#!/usr/bin/python3
-"""Island Perimeter Problem
-"""
-
-
 def island_perimeter(grid):
     """
-    Calculates the perimeter of the island described in grid
+    Calculate the perimeter of the island in the given grid.
+    
     Args:
-        grid: 2d list of integers containing 0(water) or 1(land)
-    Return:
-        the perimeter of the island
+    grid (List[List[int]]): A 2D grid where 0 represents water and 1 represents land.
+    
+    Returns:
+    int: The perimeter of the island.
     """
-
-    p = 0
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if (grid[i][j] == 1):
-                if (i <= 0 or grid[i - 1][j] == 0):
-                    p += 1
-                if (i >= len(grid) - 1 or grid[i + 1][j] == 0):
-                    p += 1
-                if (j <= 0 or grid[i][j - 1] == 0):
-                    p += 1
-                if (j >= len(grid[i]) - 1 or grid[i][j + 1] == 0):
-                    p += 1
-    return p
+    perimeter = 0
+    rows = len(grid)
+    cols = len(grid[0])
+    
+    for r in range(rows):
+        for c in range(cols):
+            # Check if current cell is land
+            if grid[r][c] == 1:
+                # Start with 4 sides
+                cell_perimeter = 4
+                
+                # Check adjacent cells and subtract sides that touch land
+                # Check cell above
+                if r > 0 and grid[r-1][c] == 1:
+                    cell_perimeter -= 1
+                
+                # Check cell below
+                if r < rows - 1 and grid[r+1][c] == 1:
+                    cell_perimeter -= 1
+                
+                # Check cell to the left
+                if c > 0 and grid[r][c-1] == 1:
+                    cell_perimeter -= 1
+                
+                # Check cell to the right
+                if c < cols - 1 and grid[r][c+1] == 1:
+                    cell_perimeter -= 1
+                
+                # Add this cell's perimeter to total
+                perimeter += cell_perimeter
+    
+    return perimeter
