@@ -1,43 +1,40 @@
 #!/usr/bin/python3
-"""Prime Game"""
+"""
+Prima Game
+"""
+
+
+def primeNumbers(n):
+    """Return list of prime numbers between 1 and n inclusive
+       Args:
+        n (int): upper boundary of range. lower boundary is always 1
+    """
+    prime_numbers = []
+    filtered = [True] * (n + 1)
+    for prime in range(2, n + 1):
+        if (filtered[prime]):
+            prime_numbers.append(prime)
+            for i in range(prime, n + 1, prime):
+                filtered[i] = False
+    return prime_numbers
+
 
 def isWinner(x, nums):
     """x - rounds
     nums - numbers list
     """
-    if not nums or x < 1:
+    if x is None or nums is None or x == 0 or nums == []:
         return None
-
-    max_n = max(nums)
-    
-    # Precompute prime numbers using the Sieve of Eratosthenes
-    primes = [True] * (max_n + 1)
-    primes[0] = primes[1] = False  # 0 and 1 are not primes
-    for i in range(2, int(max_n**0.5) + 1):
-        if primes[i]:
-            for j in range(i * i, max_n + 1, i):
-                primes[j] = False
-    
-    # Precompute the number of primes up to each number
-    prime_count = [0] * (max_n + 1)
-    for i in range(1, max_n + 1):
-        prime_count[i] = prime_count[i - 1] + (1 if primes[i] else 0)
-
-    # Simulate each round
     maria_wins = 0
     ben_wins = 0
-
-    for n in nums:
-        # Maria starts; count primes up to n
-        if prime_count[n] % 2 == 1:
-            maria_wins += 1
-        else:
+    for i in range(x):
+        prime_numbers = primeNumbers(nums[i])
+        if len(prime_numbers) % 2 == 0:
             ben_wins += 1
-
-    # Determine the overall winner
+        else:
+            maria_wins += 1
     if maria_wins > ben_wins:
-        return "Maria"
+        return 'Maria'
     elif ben_wins > maria_wins:
-        return "Ben"
-    else:
-        return None
+        return 'Ben'
+    return None
