@@ -2,8 +2,6 @@
 """
 Log parsing script to compute metrics from stdin.
 """
-#!/usr/bin/python3
-
 import sys
 
 
