@@ -2,13 +2,19 @@
 """
 Log parsing script to compute metrics from stdin.
 """
+#!/usr/bin/python3
 
 import sys
 
 
 def print_msg(dict_sc, total_file_size):
     """
-    Prints the current statistics.
+    Method to print
+    Args:
+        dict_sc: dict of status codes
+        total_file_size: total of the file
+    Returns:
+        Nothing
     """
 
     print("File size: {}".format(total_file_size))
@@ -31,14 +37,15 @@ dict_sc = {"200": 0,
 
 try:
     for line in sys.stdin:
-        parsed_line = line.split()  
-        parsed_line = parsed_line[::-1]  
+        parsed_line = line.split()  # ✄ trimming
+        parsed_line = parsed_line[::-1]  # inverting
+
         if len(parsed_line) > 2:
             counter += 1
 
             if counter <= 10:
-                total_file_size += int(parsed_line[0])  
-                code = parsed_line[1]  
+                total_file_size += int(parsed_line[0])  # file size
+                code = parsed_line[1]  # status code
 
                 if (code in dict_sc.keys()):
                     dict_sc[code] += 1
